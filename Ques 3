@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    Node(int val) {
+        data = val;
+        next = NULL;
+    }
+};
+
+class SinglyLinkedList {
+    Node* head;
+public:
+    SinglyLinkedList() {
+        head = NULL;
+    }
+
+    void insertAtEnd(int val) {
+        Node* newNode = new Node(val);
+        if (head == NULL) {
+            head = newNode;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    void display() {
+        Node* temp = head;
+        if (temp == NULL) {
+            cout << "List is empty.\n";
+            return;
+        }
+        while (temp != NULL) {
+            cout << temp->data;
+            if (temp->next != NULL) cout << " -> ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    void findMiddle() {
+        if (head == NULL) {
+            cout << "List is empty.\n";
+            return;
+        }
+        Node* slow = head;
+        Node* fast = head;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        cout << "Middle of the linked list: " << slow->data << endl;
+    }
+};
+
+int main() {
+    SinglyLinkedList sll;
+    int n, val;
+
+    cout << "Enter number of nodes: ";
+    cin >> n;
+    cout << "Enter node values: ";
+    for (int i = 0; i < n; i++) {
+        cin >> val;
+        sll.insertAtEnd(val);
+    }
+
+    cout << "Linked List: ";
+    sll.display();
+
+    sll.findMiddle();
+
+    return 0;
+}
